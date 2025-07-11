@@ -1,0 +1,75 @@
+.headMenu {
+  border: 1px solid #F7E7CE;
+  padding: 4px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-radius: 6px;
+  position: relative;
+}
+
+.headMenu span {
+  display: block;
+  border: 1px solid #F7E7CE;
+  width: 10px;
+}
+
+.headMenu:hover span,.headMenu:focus span {
+  border-color: black;
+  background: #f9f9f9;
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.headMenu:hover,
+.hedMenu:focus {
+  border-color: black;
+  background: #f9f9f9;
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.searchDiv {
+  width: 40%;
+}
+
+.inputFields {
+  border-radius: 7px;
+  border: 1px solid #F7E7CE;
+  padding: 5px 10px;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputFields:hover,
+.inutFields:focus {
+  border: 0.6px solid #F7E7CE; 
+  background: #f9f9f9;
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+  cursor: text;
+  outline: none;
+}
+
+.inputFields img{
+  cursor: pointer;
+}
+
+.headerInput{
+  width: 94%;
+  border: none;
+  outline: none;
+}
+
+.headerLogo{
+    width: 5%;
+    border-radius: 50%;
+}
+
+.headerLogo:focus{
+  border: none;
+}

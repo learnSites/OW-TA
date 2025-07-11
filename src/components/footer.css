@@ -1,9 +1,9 @@
 .siteFooter{
-    color: white;
+    color: #FAF9F6;
     display: flex;
     flex-direction: column;
     gap: 25px;
-    background: black;
+    background: #0A0F2C;
 }
 
 .footerTop{
@@ -16,10 +16,12 @@
     justify-content: center;
     padding: 12px;
     gap: 15px;
+    font-size: 14px;
 }
 
 h4{
     margin: 0px;
+    font-size: 15px;
 }
 
 .footerSection{
@@ -38,6 +40,7 @@ h4{
     color: #b9b9b9;
     cursor: pointer;
     text-decoration: none;
+    font-size: 14px;
 }
 
 .linkWord:hover{
@@ -46,8 +49,7 @@ h4{
 }
 
 .spliters{
-    color: white;
-    font-weight: 900;
+    color: #F7E7CE;
 }
 
 .socialIcon:hover{

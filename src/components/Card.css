@@ -1,5 +1,5 @@
 .wholeCard{
-    border: 1px solid;
+    border: 1px solid #F7E7CE;
     min-width: 100px;
     min-height: 100px;
 }
@@ -17,5 +17,6 @@
 .nameDiv{
     padding: 4px 9px;
     letter-spacing: 0.3px;
+    font-size: 14px;
 }
 

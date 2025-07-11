@@ -18,13 +18,13 @@
         width: 0;
     }
     to {
-        width: 250px;
+        width: 300px;
     }
 }
 
 @keyframes openRightToLeft {
     from {
-        width: 250px;
+        width: 300px;
     }
     to {
         width: 0px;
@@ -47,7 +47,7 @@
 }
 
 .profileSrc{
-    border: 1px solid;
+    border: 1px solid #F7E7CE;
     border-radius: 50%;
     width: 90px;
     height: 92px;
@@ -55,7 +55,7 @@
 
 .profileSrc:hover{
     transform: scale(1.05);
-    border: 2px solid;
+    border: 2px solid #F7E7CE;
 }
 
 .topSection{
