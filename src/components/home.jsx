@@ -1,9 +1,8 @@
 import Card from "./Card";
 import Banner from './banner';
-import Popup from "./popup";
 import './home.css';
 
-export default function Home({ open, setOpen }) {
+export default function Home() {
   const product = [
     { Pdtname: "Home Appliances", logo: "/asset/Home Appliances.jpg" },
     { Pdtname: "Computers & Accessories", logo: "/asset/computer.jpg" },
@@ -18,9 +17,6 @@ export default function Home({ open, setOpen }) {
 
   return (
     <>
-      <div className="popupDiv">
-        <Popup open={open} setOpen={setOpen} />
-      </div>
       <div className="contentDiv">
         <Banner />
         {product.map((element, index) => (

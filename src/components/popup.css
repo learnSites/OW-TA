@@ -1,14 +1,12 @@
 .popOpen {
     background: #f0f0f0;
     width: 250px;
-    height: 70vh;
     overflow: hidden;
     animation: openLeftToRight 0.5s forwards;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
-    height: 100%;
     box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 0.5);
     position: sticky;
 }
@@ -18,30 +16,28 @@
         width: 0;
     }
     to {
-        width: 300px;
+        width: 25%;
     }
 }
 
 @keyframes openRightToLeft {
     from {
-        width: 300px;
+        width: 25%;
     }
     to {
         width: 0px;
     }
 }
 
-.popClose{
+.popClose,.popCloseEnd{
     background: #f0f0f0;
     width: 250px;
-    height: 70vh;
     overflow: hidden;
     animation: openRightToLeft 0.5s forwards;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
-    height: 100%;
     box-shadow: 6px 0px 10px 0px rgba(0, 0, 0, 0.5);
     position: sticky;
 }
