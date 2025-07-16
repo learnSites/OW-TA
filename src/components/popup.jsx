@@ -6,11 +6,14 @@ export default function Popup({ open, setOpen }) {
 
   useEffect(() => {
     function handleClickOutside(event) {
-      if (pop.current && !pop.current.contains(event.target)) {
-        let popupDiv = document.querySelector('.popupDiv');
-        if (!popupDiv.contains(event.target)) {
-          setOpen("popClose");
-        }
+
+      if (
+        open === "popOpen" &&
+        pop.current &&
+        !pop.current.contains(event.target) &&
+        !event.target.closest("#togglePopup")
+      ) {
+        setOpen("popClose");
       }
     }
 
@@ -18,7 +21,8 @@ export default function Popup({ open, setOpen }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [setOpen]);
+  }, [open, setOpen]);
+
 
   return (
     <div className={open} ref={pop}>
