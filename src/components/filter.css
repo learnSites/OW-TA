@@ -1,0 +1,89 @@
+.filterContainer{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: max-content;
+    padding: 20px 0px 18px 0px;
+    position: relative;
+}
+
+.filterContent {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    width: 90%;
+    height: max-content;
+    position: relative;
+}
+
+.filterOption p{
+    margin: 0;
+    border: 1px solid #d7d7d7;
+    border-radius: 15px;
+    box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.1);
+    padding: 8px 30px 8px 15px;
+}
+
+.filterOption button{
+    border: none;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+.filterOption button:hover{
+    transform: scale(1.012);
+    background-color: #d7d7d7;
+}
+
+.filterOption{
+    display: flex;
+    gap: 15px;
+}
+
+.filterItem {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filterButton{
+    display: flex;
+}
+
+.filterButton button{
+    border-radius: 8px;
+    border: 1px solid #d7d7d7;
+    background: none;
+    box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.1);
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.filterButton button:hover{
+    transform: scale(1.12);
+    background-color: #eeeeee;
+}
+
+.filterInner{
+    box-shadow: 0px 0px 15px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    width: 95%;
+    display: flex;
+    padding: 10px 0px;
+    justify-content: center;
+}
+
+.filterChoose{
+    position: absolute;
+    right: 3%;
+    bottom: -4%;
+    z-index: 2;
+    border: 1px solid #eee;
+    background: white;
+    padding: 5px 20px;
+    border-radius: 10px;
+}

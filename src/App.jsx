@@ -2,10 +2,10 @@ import "./app.css";
 import Header from "./components/header"; 
 import Popup from "./components/popup"; 
 import Home from "./components/home";
-import Banner from "./components/banner";
+import Filter from "./components/filter";
 import Footer from './components/footer';
 import { useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   const [open, setOpen] = useState("popClose");
@@ -19,10 +19,10 @@ function App() {
       <div className="bodyContent">
         <Popup open={open} setOpen={setOpen} />
         
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/banner" component={Banner} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/filter" element={<Filter />} />
+        </Routes>
       </div>
 
       <div className="footer">

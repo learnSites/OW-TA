@@ -8,9 +8,9 @@ export default function Footer() {
                 <div className="footerSection">
                     <h4>Company</h4>
                     <div className='inFooterSection'>
-                        <Link className='linkWord' to="/footer">About Us</Link>
+                        <Link className='linkWord' to="/filter">About Us</Link>
                         <div className='spliters'>|</div>
-                        <Link className='linkWord'>Careers</Link>
+                        <Link className='linkWord' to="/">Careers</Link>
                         <div className='spliters'>|</div>
                         <Link className='linkWord'>Blog</Link>
                     </div>
