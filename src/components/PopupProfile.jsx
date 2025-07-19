@@ -24,17 +24,20 @@ export default function Popup() {
     <div
       ref={popupRdf}
       onClick={() => (click == true) ? setClick(false) : setClick(true)}
-      style={{ position: "relative" }}
+      style={{ position: "relative",width: '11%' }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <div className='headProfile'>
-        <img className='ProfilImg' src={fun} alt="Profile" />
+      <div className="flex justify-between items-center">
+        <p className="text-white">Welcome , Aravind A</p>
+        <div className='headProfile'>
+          <img className='ProfilImg' src={fun} alt="Profile" />
+        </div>
       </div>
 
       {isHover && !click && (
-        <div className="popDiv" style={{ fontSize: "16px" }}>
-          <div>
+        <div className="popDiv" style={{ fontSize: "16px"}}>
+          <div className="flex flex-col gap-[12px]">
             <p className="headContent">Personal Details</p>
             <p className="innerContent">Phone: 8122479301</p>
             <p className="innerContent">E-mail : arusamyarvnd12@gmail.com</p>
@@ -46,20 +49,20 @@ export default function Popup() {
       )}
 
       {click && (
-        <div className="popDiv" style={{ fontSize: "16px" }}>
-          <div>
+        <div className="popDiv gap-[20px]" style={{ fontSize: "16px" }}>
+          <div  className="flex flex-col gap-[12px]">
             <p className="headContent">Personal Details</p>
             <p className="innerContent">Phone: 8122479301</p>
             <p className="innerContent">E-mail : arusamyarvnd12@gmail.com</p>
           </div>
-          <div>
+          <div  className="flex flex-col gap-[12px]">
             <p className="headContent">Your Orders</p>
             <p className="innerContent">Home Appliances: 4</p>
             <div className="innerContent">
                 <button className="contentButton">Orders</button>
             </div>
           </div>
-          <div>
+          <div  className="flex flex-col gap-[12px]">
             <p className="headContent">Your Cart</p>
             <p className="innerContent">Home Appliances: 1</p>
             <p className="innerContent">Computer & Accessories: 2</p>

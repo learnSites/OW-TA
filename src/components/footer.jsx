@@ -8,7 +8,7 @@ export default function Footer() {
                 <div className="footerSection">
                     <h4>Company</h4>
                     <div className='inFooterSection'>
-                        <Link className='linkWord' to="/filter">About Us</Link>
+                        <Link className='linkWord' to="/productlist">About Us</Link>
                         <div className='spliters'>|</div>
                         <Link className='linkWord' to="/">Careers</Link>
                         <div className='spliters'>|</div>

@@ -2,10 +2,12 @@ import "./app.css";
 import Header from "./components/header"; 
 import Popup from "./components/popup"; 
 import Home from "./components/home";
-import Filter from "./components/filter";
+import ProductList from "./components/productlist";
 import Footer from './components/footer';
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+
+// @Aravind----npm install -D tailwindcss@3 postcss autoprefixer  npx tailwindcss init -p
 
 function App() {
   const [open, setOpen] = useState("popClose");
@@ -21,7 +23,7 @@ function App() {
         
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/filter" element={<Filter />} />
+          <Route path="/productlist" element={<ProductList />} />
         </Routes>
       </div>
 

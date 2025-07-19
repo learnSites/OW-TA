@@ -10,11 +10,12 @@
     background-color: white;
     width: max-content;
     position: absolute;
-    right: 100%;
-    top: 70%;
+    right: 0%;
+    top: 140%;
     padding: 10px 15px;
     border-radius: 5px;
     z-index: 10;
+    gap: 25px;
 }
 
 .innerContent{
