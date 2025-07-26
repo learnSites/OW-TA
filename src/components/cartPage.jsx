@@ -1,8 +1,6 @@
-import Filter from './filter';
-import ProductCard from './productcard';
-import { Link } from 'react-router-dom';
+import CartCard from "./cartCard";
 
-export default function Productlist(){
+export default function Cart(){
     const product = [
         { Pdtname: "Home Appliances", logo: "/asset/Home Appliances.jpg", price: 100 ,spec: "Various home appliances including refrigerators, washing machines, and more." },
         { Pdtname: "Computers & Accessories", logo: "/asset/computer.jpg", price: 200 ,spec: "Laptops, desktops, and accessories for all your computing needs." },
@@ -14,18 +12,16 @@ export default function Productlist(){
         { Pdtname: "Mobile & Tablets", logo: "/asset/mobtab.jpg", price: 400 ,spec: "Latest smartphones and tablets with cutting-edge technology." },
         { Pdtname: "Networking & Connectivity", logo: "/asset/network.jpg", price: 500 ,spec: "Essential networking equipment for home and office." },
     ];
-    return (
-        <>
-        <div className="w-full flex flex-col gap-[20px]">
-            <Filter />
-            <div className="flex flex-wrap gap-[20px] justify-center pl-[35px] pr-[25px] pb-[45px]">
-                {
-                    product.map((item,index) =>{
-                        return <Link to="/displayProduct" state={{ product: item }}><ProductCard  key={index} productName={item.Pdtname} productImage={item.logo} productPrice={item.price}/></Link>
-                    })   
-                }
+    return(
+        <div className="w-full pt-[30px]">
+            <div>
+                <h2>Your Shopping Cart</h2>
+            </div>
+            <div>
+                {product.map((item, index) => (
+                    <CartCard key={index} product={item} />
+                ))}
             </div>
         </div>
-        </>
     );
 }

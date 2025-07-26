@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import './popupProfile.css';
 import fun from '/asset/fun.jpg';
+import { Link } from "react-router-dom";
 
 export default function Popup() {
   let [isHover, setHover] = useState(false);
@@ -70,7 +71,9 @@ export default function Popup() {
             <p className="innerContent">Quantity : 3</p>
             <p className="innerContent">Total Price : 3000</p>
             <div className="innerContent">
-                <button className="contentButton">Cart</button>
+                <Link to="/cart">
+                    <button className="contentButton">Cart</button>
+                </Link>
             </div>
           </div>
         </div>

@@ -2,6 +2,8 @@ import "./app.css";
 import Header from "./components/header"; 
 import Popup from "./components/popup"; 
 import Home from "./components/home";
+import DisplayProduct from "./components/displayProduct";
+import Cart from "./components/cartPage";
 import ProductList from "./components/productlist";
 import Footer from './components/footer';
 import { useState } from "react";
@@ -24,6 +26,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/productlist" element={<ProductList />} />
+          <Route path="/displayProduct" element={<DisplayProduct />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>
 
