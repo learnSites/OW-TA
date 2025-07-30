@@ -4,6 +4,8 @@ import Popup from "./components/popup";
 import Home from "./components/home";
 import DisplayProduct from "./components/displayProduct";
 import Cart from "./components/cartPage";
+import Login from "./components/loginPage";
+import Register from "./components/registerPage";
 import ProductList from "./components/productlist";
 import Footer from './components/footer';
 import { useState } from "react";
@@ -28,6 +30,8 @@ function App() {
           <Route path="/productlist" element={<ProductList />} />
           <Route path="/displayProduct" element={<DisplayProduct />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
 

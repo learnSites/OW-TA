@@ -12,7 +12,7 @@ export default function Footer() {
                         <div className='spliters'>|</div>
                         <Link className='linkWord' to="/">Careers</Link>
                         <div className='spliters'>|</div>
-                        <Link className='linkWord'>Blog</Link>
+                        <Link className='linkWord' to="/login">Blog</Link>
                     </div>
                 </div>
                 <div className="footerSection">
