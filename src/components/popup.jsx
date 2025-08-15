@@ -1,3 +1,4 @@
+import React from 'react'; 
 import './popup.css';
 import { useRef, useEffect } from "react";
 

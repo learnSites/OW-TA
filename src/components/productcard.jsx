@@ -1,3 +1,4 @@
+import React from 'react'; 
 export default function ProductCard({productName ,productImage ,productPrice}) {
     return (
         <div className="w-[340px] h-[450px] rounded shadow-lg border relative cursor-pointer ">

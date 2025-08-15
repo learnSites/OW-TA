@@ -1,4 +1,5 @@
-import CartCard from "./cartCard";
+import React from 'react';
+import CartCard from "../Components/CartCard";
 
 export default function Cart(){
     const product = [

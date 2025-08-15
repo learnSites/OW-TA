@@ -1,3 +1,4 @@
+import React from 'react'; 
 import { useState, useEffect, useRef } from "react";
 import './popupProfile.css';
 import fun from '/asset/fun.jpg';
@@ -22,10 +23,11 @@ export default function Popup() {
   }, []);
 
   return (
+    <>
     <div
       ref={popupRdf}
       onClick={() => (click == true) ? setClick(false) : setClick(true)}
-      style={{ position: "relative",width: '11%' }}
+      style={{ position: "relative",width: '11%'}}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -79,5 +81,6 @@ export default function Popup() {
         </div>
       )}
     </div>
+    </>
   );
 }

@@ -1,5 +1,6 @@
-import Card from "./Card";
-import Banner from './banner';
+import React from 'react'; 
+import Card from "../Components/Card";
+import Banner from '../Components/Banner';
 import './home.css';
 
 export default function Home() {

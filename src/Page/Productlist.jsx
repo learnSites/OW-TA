@@ -1,5 +1,6 @@
-import Filter from './filter';
-import ProductCard from './productcard';
+import React from 'react'; 
+import Filter from '../Components/Filter';
+import ProductCard from '../Components/Productcard';
 import { Link } from 'react-router-dom';
 
 export default function Productlist(){
@@ -22,7 +23,7 @@ export default function Productlist(){
                 {
                     product.map((item,index) =>{
                         return <Link to="/displayProduct" state={{ product: item }}><ProductCard  key={index} productName={item.Pdtname} productImage={item.logo} productPrice={item.price}/></Link>
-                    })   
+                    })
                 }
             </div>
         </div>

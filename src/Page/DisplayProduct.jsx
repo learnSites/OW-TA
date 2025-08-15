@@ -1,4 +1,5 @@
-import { useLocation } from "react-router-dom";
+import React from 'react'; 
+import { useLocation,Link } from "react-router-dom";
 
 export default function DisplayProduct() {
     const location = useLocation();
@@ -16,7 +17,7 @@ export default function DisplayProduct() {
                 </div>
                 <div className="flex gap-[20px]">
                     <button className="bg-blue-500 text-white py-2 px-4 rounded">Add to Cart</button>
-                    <button className="bg-green-500 text-white py-2 px-4 rounded">Buy Now</button>
+                    <Link to="/shipping"><button className="bg-green-500 text-white py-2 px-4 rounded">Buy Now</button></Link>
                 </div>
             </div>
         </div>

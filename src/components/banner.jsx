@@ -1,3 +1,4 @@
+import React from 'react'; 
 import './banner.css';
 import { useState,useEffect } from 'react';
 

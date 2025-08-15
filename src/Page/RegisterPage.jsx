@@ -1,10 +1,6 @@
+import React from 'react'; 
 import { Link } from "react-router-dom";
 import { useState } from "react";
-
-// 101983626468 - Aravind
-// 102181884467 - Ashok 
-// 102171835695 - priya
-// 101975566263 - naveen
 
 export default function RegisterPage() {
     const [currentStep, setCurrentStep] = useState(1);
@@ -14,7 +10,8 @@ export default function RegisterPage() {
   <div className="bg-gray-200 w-[70%] flex flex-col gap-[15px] rounded-[15px] px-[20px] py-[30px]" style={{ boxShadow: "0px 4px 10px 1px" }}>
     <h1 className="text-2xl font-bold mb-4">Registration Page</h1>
 
-    <div className="space-y-4" style={{display: 'none'}}>
+    {/* Personal info */}
+    <div className="space-y-4" style={{display: currentStep === 1 ? 'block' : 'none'}}>
         <h4 className="text-xl font-bold mb-4">Personal info</h4>
 
         <div className="flex items-center w-full">
@@ -33,12 +30,12 @@ export default function RegisterPage() {
         </div>
             
         <div className="flex justify-end gap-[15px]">
-            <button className="bg-blue-500 text-white px-4 py-2 rounded">&lt; Prev</button>
             <button onClick={() => setCurrentStep(2)} data-id="1" className="bg-blue-500 text-white px-4 py-2 rounded">Next &gt;</button>
         </div>
     </div>
 
-    <div className="space-y-4" style={{display: 'none'}}>
+    {/* Verification info */}
+    <div className="space-y-4" style={{display: currentStep === 2 ? 'block' : 'none'}}>
         <h4 className="text-xl font-bold mb-4">Verification info</h4>
 
         <div className="flex items-center w-full">
@@ -57,7 +54,8 @@ export default function RegisterPage() {
         </div>
     </div>
 
-    <div className="space-y-4" style={{display: 'none'}}>
+    {/* Account info */}
+    <div className="space-y-4" style={{display: currentStep === 3 ? 'block' : 'none'}}>
         <h4 className="text-xl font-bold mb-4">Account info</h4>
 
         <div className="flex items-center w-full">
@@ -81,12 +79,13 @@ export default function RegisterPage() {
         </div>
             
         <div className="flex justify-end gap-[15px]">
-            <button className="bg-blue-500 text-white px-4 py-2 rounded">&lt; Prev</button>
+            <button onClick={() => setCurrentStep(1)} className="bg-blue-500 text-white px-4 py-2 rounded">&lt; Prev</button>
             <button onClick={() => setCurrentStep(4)} data-id="4" className="bg-blue-500 text-white px-4 py-2 rounded">Next &gt;</button>
         </div>
     </div>
 
-    <div className="space-y-4" style={{display: 'None'}}>
+    {/* Shipping info */}
+    <div className="space-y-4" style={{display: currentStep === 4 ? 'block' : 'none'}}>
         <h4 className="text-xl font-bold mb-4">Shipping info</h4>
 
         <div className="flex items-center w-full">
@@ -125,17 +124,18 @@ export default function RegisterPage() {
         </div>
             
         <div className="flex justify-end gap-[15px]">
-            <button className="bg-blue-500 text-white px-4 py-2 rounded">&lt; Prev</button>
+            <button onClick={() => setCurrentStep(3)} className="bg-blue-500 text-white px-4 py-2 rounded">&lt; Prev</button>
             <button onClick={() => setCurrentStep(5)} data-id="5" className="bg-blue-500 text-white px-4 py-2 rounded">Next &gt;</button>
         </div>
     </div>
 
-    <div className="space-y-4" style={{display: 'block'}}>
+    {/* Register Successful */}
+    <div className="space-y-4" style={{display: currentStep === 5 ? 'block' : 'none'}}>
         <h4 className="text-xl font-bold mb-4 text-green-500">Register Successful</h4>
         <button className="bg-blue-500 text-white px-4 py-2 rounded">Login</button>
     </div>
 
-    <div style={{display: 'block'}}>
+    <div style={{display: currentStep === 1 ? 'block' : 'none'}}>
         if you are a user? <Link to="/login"><a href="/register" className="text-blue-500">Login</a></Link>
     </div>
   </div>
