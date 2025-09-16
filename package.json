@@ -7,5 +7,4 @@
     "server": "cd backend && npm run dev",
     "client": "cd frontend && npm start"
   }
-
 }
