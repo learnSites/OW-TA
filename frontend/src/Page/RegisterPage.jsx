@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-let userData = {};
 const uploadData = async () => {
     try {
         const response = await fetch("http://localhost:5000/api/users/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(userData),
+            body: JSON.stringify(formData),
         });
         const data = await response.json();
         response.ok
@@ -18,38 +17,61 @@ const uploadData = async () => {
     }
 };
 
-function setError(message, ele) {
-    ele.placeholder = message;
-    ele.classList.remove("focus:ring-blue-400","focus:ring-2");
-    ele.classList.add("ring-2","ring-red-400");
-    ele.value = "";
-};
+function ValidityState(name, value) {
+    let pattern = '';
+    switch (name) {
+        case "firstName":
+            pattern = /^[A-Za-z\s]+$/;
+            break;
 
-function setClear(message, ele) {
-    ele.placeholder = message;
-    ele.classList.remove("ring-2","ring-red-400");
-    ele.classList.add("focus:ring-blue-400","focus:ring-2");
-};
+        case "email":
+            pattern = /\S+@\S+\.\S+/;
+            break;
 
-function emailValidation(email){
-    const emailRegex = /\S+@\S+\.\S+/;
-    if(emailRegex.test(email.value)){
-        setClear("you@example.com", email);
-    }else{
-        if(['Backspace', 'Delete'].includes(email.key)) {
-            setError("Enter a valid email", email);
-        }
+        case "phoneNo":
+            pattern = /^[0-9]{10}$/;
+            break;
+
+        case "otp":
+            pattern = /^[0-9]{6}$/;
+            break;
+
+        case "userName":
+            pattern = /^[A-Za-z0-9]{7}$/;
+            break;
+
+        case "nickName":
+            pattern = /^[A-Z a-z0-9]{10}$/;
+            break;
+
+        case "password":
+            pattern = /^[A-Z a-z0-9]{10}$/;
+            break;
+
+        case "confirmPassword":
+            pattern = /^[A-Z a-z0-9]{10}$/;
+            break;
     }
 
-    const handleEmailChange = (emailVal) => {
-        if(!emailRegex.test(emailVal)){
-            setError("Enter a valid email", emailVal);
+    if(pattern !== ''){
+        if (!pattern.test(value)) {
+            setFormErrors(prev => ({
+                ...prev,
+                [name]: false
+            }));
+        } else {
+            setFormErrors(prev => ({
+                ...prev,
+                [name]: true
+            }));
         }
-    };
+    }
 }
 
 export default function RegisterPage() {
     const [currentStep, setCurrentStep] = useState(1);
+    const [formData, setFormData] = useState({});
+    const [formErrors, setFormErrors] = useState({});
 
     return (
         <div
@@ -78,23 +100,7 @@ export default function RegisterPage() {
                         <Input name="firstName" label="Full Name" placeholder="Enter your full name" />
                         <Input name="email" type="email" label="Email Id" placeholder="you@example.com" 
                             onChange={(e) => emailValidation(e.target)}
-                            // onChange={(e) => {
-                            //     if(/\S+@\S+\.\S+/.test(e.target.value)) {
-                            //         setClear("you@example.com", e.target);
-                            //     }
-                            //     if(["Backspace", "Delete"].includes(e.key)) {
-                            //         if(!/\S+@\S+\.\S+/.test(e.target.value)){
-                            //             setError("Enter a valid email", e.target);
-                            //         }
-                            //     }
-                            // }}
-                            // onBlur={(e) => {
-                            //     if(/\S+@\S+\.\S+/.test(e.target.value)) {
-                            //         setClear("you@example.com", e.target);
-                            //     }else{
-                            //         setError("Enter a valid email", e.target); 
-                            //     }
-                            // }}
+                            onBlur={(e) => handleEmailChange(e.target.value)}
                         />
                         <Input name="phoneNo" label="Phone No" maxlength={10} placeholder="9876543210"
                             onKeyDown={(e) => {
@@ -152,33 +158,17 @@ export default function RegisterPage() {
                             label="Confirm Password"
                             placeholder="Re-enter password"
                         />
-                        <Footer
+                       <Footer
                             left={<Button onClick={() => setCurrentStep(1)}>&lt; Prev</Button>}
-                            right={<Button onClick={() => setCurrentStep(4)}>Next &gt;</Button>}
-                        />
-                    </Section>
-                )}
-
-                {/* === STEP 4 : Shipping Info === */}
-                {currentStep === 4 && (
-                    <Section title="Shipping Info">
-                        <Input name="streetAddress" label="Street Address" placeholder="123 Main St" />
-                        <Input name="aptUnit" label="Apt/Unit" placeholder="Apartment or suite" />
-                        <Input name="city" label="City" placeholder="City name" />
-                        <Input name="state" label="State" placeholder="State/Province" />
-                        <Input name="zipCode" label="Zip Code" placeholder="Postal code" />
-                        <Input name="alterEmail" label="Alternate Email Id" placeholder="another@example.com" />
-                        <Input name="alterPhone" label="Alternate Phone No" placeholder="Optional phone number" />
-                        <Footer
-                            left={<Button onClick={() => setCurrentStep(3)}>&lt; Prev</Button>}
                             right={
                                 <Button
                                     onClick={() => {
                                         uploadData();
-                                        console.log(userData);
+                                        console.log(formData);
                                     }}
+                                    style={{ backgroundColor: "#238d23" }}
                                 >
-                                    Save
+                                    Create Account
                                 </Button>
                             }
                         />
@@ -224,11 +214,15 @@ function Input({ name, label, type = "text", ...props }) {
                 id={name}
                 name={name}
                 type={type}
-                onChange={(e) => (userData[e.target.name] = e.target.value)}
+                onChange={(e) => {
+                    setFormData({ ...formData, [name]: e.target.value});
+                    ValidityState(name, e.target.value);
+                }}
                 {...props}
-                className="flex-grow p-3 rounded-xl border border-gray-300
-                   focus:outline-none focus:ring-2 focus:ring-blue-400
-                   text-gray-900 text-base"
+                className={`flex-grow p-3 rounded-xl border border-gray-300
+                   focus:outline-none ${formErrors.name ? "focus:ring-2 focus:ring-blue-400" : "ring-2 ring-red-400"}
+                   text-gray-900 text-base`}
+                value={formErrors.name ? props.value : ''}
             />
         </div>
     );
