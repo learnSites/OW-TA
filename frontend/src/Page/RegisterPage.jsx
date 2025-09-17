@@ -58,7 +58,7 @@ export default function RegisterPage() {
         >
             {/* Card */}
             <div className="w-full max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-4xl
-                  backdrop-blur-sm bg-white/30 shadow-2xl rounded-2xl
+                  backdrop-blur-md bg-white/30 shadow-2xl rounded-2xl
                   p-6 sm:p-10 flex flex-col gap-8">
                 {/* Header */}
                 <div className="relative flex justify-center items-center">
@@ -203,9 +203,9 @@ export default function RegisterPage() {
 function Section({ title, children }) {
     return (
         <div className="space-y-6">
-            <h4 className="text-xl sm:text-2xl font-semibold text-gray-700">
+            <h3 className="text-xl sm:text-2xl font-semibold text-gray-700">
                 {title}
-            </h4>
+            </h3>
             <div className="space-y-4">{children}</div>
         </div>
     );
