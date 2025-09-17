@@ -1,77 +1,136 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const uploadData = async () => {
-    try {
-        const response = await fetch("http://localhost:5000/api/users/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-        });
-        const data = await response.json();
-        response.ok
-            ? console.log("uploaded successfully :", data)
-            : console.log("Error uploading data:", data);
-    } catch (err) {
-        console.log("Error uploading data:", err);
-    }
-};
-
-function ValidityState(name, value) {
-    let pattern = '';
-    switch (name) {
-        case "firstName":
-            pattern = /^[A-Za-z\s]+$/;
-            break;
-
-        case "email":
-            pattern = /\S+@\S+\.\S+/;
-            break;
-
-        case "phoneNo":
-            pattern = /^[0-9]{10}$/;
-            break;
-
-        case "otp":
-            pattern = /^[0-9]{6}$/;
-            break;
-
-        case "userName":
-            pattern = /^[A-Za-z0-9]{7}$/;
-            break;
-
-        case "nickName":
-            pattern = /^[A-Z a-z0-9]{10}$/;
-            break;
-
-        case "password":
-            pattern = /^[A-Z a-z0-9]{10}$/;
-            break;
-
-        case "confirmPassword":
-            pattern = /^[A-Z a-z0-9]{10}$/;
-            break;
-    }
-
-    if(pattern !== ''){
-        if (!pattern.test(value)) {
-            setFormErrors(prev => ({
-                ...prev,
-                [name]: false
-            }));
-        } else {
-            setFormErrors(prev => ({
-                ...prev,
-                [name]: true
-            }));
-        }
-    }
-}
-
 export default function RegisterPage() {
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({});
     const [formErrors, setFormErrors] = useState({});
+
+    const uploadData = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/users/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+            const data = await response.json();
+            response.ok
+                ? console.log("uploaded successfully :", data)
+                : console.log("Error uploading data:", data);
+        } catch (err) {
+            console.log("Error uploading data:", err);
+        }
+    };
+
+    function ValidityState(name, value) {
+        let pattern = '';
+        switch (name) {
+            case "firstName":
+                pattern = /^[A-Za-z\s]+$/;
+                break;
+
+            case "email":
+                pattern = /\S+@\S+\.\S+/;
+                break;
+
+            case "phoneNo":
+                pattern = /^[0-9]{10}$/;
+                break;
+
+            case "otp":
+                pattern = /^[0-9]{6}$/;
+                break;
+
+            case "userName":
+                pattern = /^[A-Za-z0-9]{7}$/;
+                break;
+
+            case "nickName":
+                pattern = /^[A-Z a-z0-9]{10}$/;
+                break;
+
+            case "password":
+                pattern = /^[A-Z a-z0-9]{10}$/;
+                break;
+
+            case "confirmPassword":
+                pattern = /^[A-Z a-z0-9]{10}$/;
+                break;
+        }
+
+        if(pattern !== ''){
+            if (!pattern.test(value)) {
+                setFormErrors(prev => ({
+                    ...prev,
+                    [name]: false
+                }));
+            } else {
+                setFormErrors(prev => ({
+                    ...prev,
+                    [name]: true
+                }));
+            }
+        }
+    }
+    
+    function Section({ title, children }) {
+        return (
+            <div className="space-y-6">
+                <h3 className="text-xl sm:text-2xl font-semibold text-gray-700">
+                    {title}
+                </h3>
+                <div className="space-y-4">{children}</div>
+            </div>
+        );
+    }
+
+    function Input({ name, label, type = "text", ...props }) {
+        return (
+            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
+                <label
+                    htmlFor={name}
+                    className="w-full sm:w-1/3 font-[550] text-gray-700 text-base"
+                >
+                    {label}:
+                </label>
+                <input
+                    id={name}
+                    name={name}
+                    type={type}
+                    onChange={(e) => {
+                        setFormData({ ...formData, [name]: e.target.value});
+                        ValidityState(name, e.target.value);
+                    }}
+                    {...props}
+                    className={`flex-grow p-3 rounded-xl border border-gray-300
+                    focus:outline-none ${formErrors[name] ? "focus:ring-2 focus:ring-blue-400" : "ring-2 ring-red-400"}
+                    text-gray-900 text-base`}
+                    value={formErrors[name] || ''}
+                />
+            </div>
+        );
+    }
+
+    function Button({ children, ...props }) {
+        return (
+            <button
+                {...props}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold
+                    px-6 py-2 rounded-lg transition-colors shadow"
+            >
+                {children}
+            </button>
+        );
+    }
+
+    function Footer({ left, right }) {
+        return (
+            <div className="flex justify-between items-center mt-4">
+                {left || <span />}
+                {right}
+            </div>
+        );
+    }
 
     return (
         <div
@@ -190,61 +249,3 @@ export default function RegisterPage() {
     );
 }
 
-function Section({ title, children }) {
-    return (
-        <div className="space-y-6">
-            <h3 className="text-xl sm:text-2xl font-semibold text-gray-700">
-                {title}
-            </h3>
-            <div className="space-y-4">{children}</div>
-        </div>
-    );
-}
-
-function Input({ name, label, type = "text", ...props }) {
-    return (
-        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
-            <label
-                htmlFor={name}
-                className="w-full sm:w-1/3 font-[550] text-gray-700 text-base"
-            >
-                {label}:
-            </label>
-            <input
-                id={name}
-                name={name}
-                type={type}
-                onChange={(e) => {
-                    setFormData({ ...formData, [name]: e.target.value});
-                    ValidityState(name, e.target.value);
-                }}
-                {...props}
-                className={`flex-grow p-3 rounded-xl border border-gray-300
-                   focus:outline-none ${formErrors.name ? "focus:ring-2 focus:ring-blue-400" : "ring-2 ring-red-400"}
-                   text-gray-900 text-base`}
-                value={formErrors.name ? props.value : ''}
-            />
-        </div>
-    );
-}
-
-function Button({ children, ...props }) {
-    return (
-        <button
-            {...props}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold
-                 px-6 py-2 rounded-lg transition-colors shadow"
-        >
-            {children}
-        </button>
-    );
-}
-
-function Footer({ left, right }) {
-    return (
-        <div className="flex justify-between items-center mt-4">
-            {left || <span />}
-            {right}
-        </div>
-    );
-}
