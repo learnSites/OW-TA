@@ -62,15 +62,17 @@ export default function RegisterPage() {
             if (!pattern.test(value)) {
                 setFormErrors(prev => ({
                     ...prev,
-                    [name]: false
+                    [name]: value
                 }));
             } else {
                 setFormErrors(prev => ({
                     ...prev,
-                    [name]: true
+                    [name]: value
                 }));
             }
         }
+
+        console.log(formErrors);
     }
     
     function Section({ title, children }) {
@@ -97,15 +99,18 @@ export default function RegisterPage() {
                     id={name}
                     name={name}
                     type={type}
+                    value={formData[name] || ""}
                     onChange={(e) => {
-                        setFormData({ ...formData, [name]: e.target.value});
+                        const val =  e.target.value;
+                        setFormData(prev => ({ ...prev, [name]: val }))}
+                    }
+                    onBlur={(e) => {
                         ValidityState(name, e.target.value);
                     }}
                     {...props}
                     className={`flex-grow p-3 rounded-xl border border-gray-300
-                    focus:outline-none ${formErrors[name] ? "focus:ring-2 focus:ring-blue-400" : "ring-2 ring-red-400"}
+                    focus:outline-none ${formErrors[name] ? "ring-2 ring-red-400" : "focus:ring-2 focus:ring-blue-400"}
                     text-gray-900 text-base`}
-                    value={formErrors[name] || ''}
                 />
             </div>
         );
@@ -157,11 +162,8 @@ export default function RegisterPage() {
                 {currentStep === 1 && (
                     <Section title="Personal Info">
                         <Input name="firstName" label="Full Name" placeholder="Enter your full name" />
-                        <Input name="email" type="email" label="Email Id" placeholder="you@example.com" 
-                            onChange={(e) => emailValidation(e.target)}
-                            onBlur={(e) => handleEmailChange(e.target.value)}
-                        />
-                        <Input name="phoneNo" label="Phone No" maxlength={10} placeholder="9876543210"
+                        <Input name="email" type="email" label="Email Id" placeholder="you@example.com" />
+                        <Input name="phoneNo" label="Phone No" placeholder="9876543210"
                             onKeyDown={(e) => {
                                 if (
                                     !/[0-9]/.test(e.key) &&
