@@ -5,7 +5,8 @@ import './Home.css';
 import { useState } from "react";
 import Footer from '../Components/Footer';
 import Header from "../Components/Header"; 
-import Popup from "../Components/Popup"; 
+import Popup from "../Components/Popup";
+import RegisterPage from './RegisterPage';
 
 export default function Home() {
   const [open, setOpen] = useState("popClose");
@@ -24,6 +25,7 @@ export default function Home() {
 
   return (
     <>
+    <div className='relative'>
       <div className="header">
         <Header toggoleBar={() => setOpen(open === "popClose" ? "popOpen" : "popClose")} />
       </div>
@@ -41,6 +43,9 @@ export default function Home() {
       <div className="footer">
         <Footer />
       </div>
+
+      <RegisterPage />
+    </div>
     </>
   );
 }

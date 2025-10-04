@@ -19,12 +19,12 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/register" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/productlist" element={<ProductList />} />
         <Route path="/displayProduct" element={<DisplayProduct />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Register />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/confirm" element={<Confirm />} />
         <Route path="/orders" element={<Order />} />
