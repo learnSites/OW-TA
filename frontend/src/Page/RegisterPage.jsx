@@ -23,10 +23,6 @@ export default function RegisterPage() {
     }
   };
 
-  const signInWithGoogle = () => {
-    window.location.href = "http://localhost:5000/api/auth/google";
-  }
-
   function ValidityState(name, value) {
     let pattern = "";
     switch (name) {
