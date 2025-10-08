@@ -147,7 +147,6 @@ export default function RegisterPage() {
                     e.preventDefault();
                   }
                 }}
-                onClick={() => signInWithGoogle()}
               />
               <Footer
                 right={

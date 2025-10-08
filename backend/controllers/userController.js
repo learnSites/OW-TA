@@ -12,10 +12,8 @@ const getUser = async (req, res) => {
 
 const createUser = async (req, res) => {
     try{
-
         const maxUserCode = await User.findOne().sort({userCode: -1}).exec();
         const maxCode = maxUserCode ? maxUserCode.userCode : 0;
-
         const {phoneNo,password,nickName,userName} = req.body;
         const user = await User.create({userCode: maxCode + 1,phoneNo,password,nickName,userName});
 
