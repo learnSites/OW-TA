@@ -5,45 +5,8 @@ const registerSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    firstName: {
-        type: String,
-        required: true
-    },
-    email:{
-        type: String,
-        required: true,
-        unique: true
-    },
     phoneNo: {
-        type: String,
-        required: true
-    },
-    streetAddress: {
-        type: String,
-        required: true
-    },
-    aptUnit: {
-        type: String,
-        required: true
-    },
-    city: {
-        type: String,
-        required: true
-    },
-    state: {
-        type: String,
-        required: true
-    },
-    zipCode: {
-        type: String,
-        required: true
-    },
-    alterEmail: {
-        type: String,
-        required: true
-    },
-    alterPhone: {
-        type: String,
+        type: Number,
         required: true
     },
     password: {
@@ -52,7 +15,7 @@ const registerSchema = new mongoose.Schema({
     },
     nickName: {
         type: String,
-        required: true
+        required: false
     },
     userName: {
         type: String,
