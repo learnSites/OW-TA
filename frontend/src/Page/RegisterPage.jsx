@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Input from "../Components/InputFeild"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+
 
 export default function RegisterPage() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -84,23 +87,24 @@ export default function RegisterPage() {
     );
   }
 
-  function Button({ children, ...props }) {
+  function Button({ children, src,className, ...props }) {
     return (
-      <button
-        {...props}
-        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold
-                    px-6 py-2 rounded-lg transition-colors shadow"
-      >
-        {children}
-      </button>
+      <div className={`flex gap-1 bg-gray-900 hover:bg-blue-700 text-white font-semibold
+                      px-9 py-1 rounded-xl transition-colors shadow ${className}`}>
+        <img className="w-11 h-11" src={src} alt="Logo" />
+        <button
+          {...props}
+        >
+          {children}
+        </button>
+      </div>
     );
   }
 
-  function Footer({ left, right }) {
+  function Footer({ center }) {
     return (
-      <div className="flex justify-between items-center mt-4">
-        {left || <span />}
-        {right}
+      <div className="flex justify-center items-center mt-4">
+        <div>{center}</div>
       </div>
     );
   }
@@ -117,23 +121,18 @@ export default function RegisterPage() {
         >
           {/* Header */}
           <div className="relative flex justify-center items-center">
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-800">
-              Welcome to OWTA.
-            </h1>
-            <img
-              src="/asset/ow-ta_logo.png"
-              alt="Logo"
-              className="w-20 h-20 rounded-full absolute left-[22rem] bottom-0"
-            />
+            <h4 className="text-lg tracking-wider font-bold text-gray-800 m-2">
+              Start Shopping with OWTA Today
+            </h4>
           </div>
 
           {/* === STEP 1 : Personal Info === */}
           {currentStep === 1 && (
+            <>
             <Section>
               <Input
-                label="Phone No"
-                name="phoneNo"
-                placeholder="Phone No"
+                label="Mobile No"
+                name="MobileNo"
                 onKeyDown={(e) => {
                   if (
                     !/[0-9]/.test(e.key) &&
@@ -147,13 +146,17 @@ export default function RegisterPage() {
                     e.preventDefault();
                   }
                 }}
+                className="mx-auto w-[90%]"
               />
-              <Footer
-                right={
-                  <Button onClick={() => setCurrentStep(2)}>To Verify</Button>
-                }
-              />
+              <Footer center={<Button src="/asset/ow-ta_Logo.png" className={'mt-2'} onClick={() => setCurrentStep(2)}>To Verify</Button>} />
             </Section>
+            <div className="relative mt-4">
+                <hr />
+                <div className="absolute left-1/2 transform -translate-x-1/2 -top-2 text-gray-500 text-sm bg-white px-2">OR</div>
+            </div>
+            <Footer center={<Button src="/asset/google-Logo.png" className="max-w-fit">Google</Button>} />
+            
+            </>
           )}
 
           {/* === STEP 2 : Verification === */}

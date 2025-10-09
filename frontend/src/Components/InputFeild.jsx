@@ -1,34 +1,49 @@
 import { useState } from "react";
 
-  export default function Input({ name, placeholder, label, type = "text", ...props }) {
-    let [isFocused, setIsFocused] = useState(false);
-    return (
-      <>
-        <div className="relative">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
-            <input
-              id={name}
-              name={name}
-              type={type}
-              placeholder={isFocused ? "" : placeholder}
-            //   value={formData[name] || ""}
-              onFocus={() => setIsFocused(true)}
-              onBlur={(e) => {
-                setIsFocused(false);
-              }}
-              {...props}
-              className={`flex-grow p-3 rounded-xl border border-gray-300
+export default function Input({
+  name,
+  label,
+  placeholder,
+  value,
+  className,
+  type = "text",
+  ...props
+}) {
+  let [isFocused, setIsFocused] = useState(false);
+  let [isValue, setIsValue] = useState(false);
+  return (
+    <>
+      <div className={`relative ${className}`}>
+        <div className={`flex flex-col sm:flex-row sm:items-center sm:gap-4 ${className}`}>
+          <input
+            id={name}
+            name={name}
+            type={type}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            onChange={(e) => setIsValue(e.target.value == "" ? false : true)}
+            {...props}
+            className={`flex-grow p-3 rounded-xl border border-gray-300
                         focus:outline-none focus:ring-2 focus:ring-blue-400
                         text-gray-900 text-base`}
-            />
-          </div>
-          <div className={`absolute left-[20px] top-[-13.5px] bg-white text-blue-500 px-2 ${isFocused ? "block top-[-10px] text-sm opacity-100" : "hidden top-3 text-base opacity-50"} transition-all duration-300`}>{label}</div>
+          />
         </div>
-      </>
-    );
-  }
-//   ${
-//                           formErrors[name]
-//                             ? "ring-2 ring-red-400"
-//                             : "focus:ring-2 focus:ring-blue-400"
-//                         }
+        <label
+          htmlFor={name}
+          className={`px-2 ${
+            isValue || isFocused ? "top-[-30%] left-[12px] transition-all duration-200 ease-in-out" : "bg-white text-gray-500 top-[23.5%] transition-all duration-500 ease-in-out"
+          } 
+              
+              ${
+                !isFocused && isValue
+                  ? "absolute translate-x-[255%] bg-white text-gray-500"
+                  : "absolute translate-x-[23%] bg-white text-blue-500"
+              } 
+              `}
+        >
+          {label}
+        </label>
+      </div>
+    </>
+  );
+}
