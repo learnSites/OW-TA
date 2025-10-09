@@ -89,8 +89,8 @@ export default function RegisterPage() {
 
   function Button({ children, left, right, className, ...props }) {
     return (
-      <div className={`flex gap-1 bg-gray-900 hover:bg-blue-700 text-white font-semibold
-                      px-9 py-1 rounded-xl transition-colors shadow ${className}`}>
+      <div className={`flex bg-gray-900 hover:bg-gray-700 text-white font-semibold
+                      rounded-xl transition-colors shadow ${className}`}>
         {left}
         <button
           {...props}
@@ -122,8 +122,8 @@ export default function RegisterPage() {
         >
           {/* Header */}
           <div className="relative flex justify-center items-center">
-            <h4 className="text-lg tracking-wider font-bold text-gray-800 m-2">
-              Start Shopping with OWTA Today
+            <h4 className="text-lg tracking-wider font-bold text-gray-600 m-2">
+              Start Shopping with OWTA Today!
             </h4>
           </div>
 
@@ -149,13 +149,13 @@ export default function RegisterPage() {
                 }}
                 className="mx-auto w-[90%]"
               />
-              <Footer center={<Button right={<img className="w-11 h-11" src="/asset/ow-ta_Logo.png" alt="Logo" />} children="To Verify" className={'mt-2'} onClick={() => setCurrentStep(2)}></Button>} />
+              <Footer center={<Button right={<img className="w-11 h-11" src="/asset/ow-ta_Logo.png" alt="Logo" />} children="To Verify" className='mt-2 py-1 px-6 flex gap-1' onClick={() => setCurrentStep(2)}></Button>} />
             </Section>
             <div className="relative mt-4">
                 <hr />
-                <div className="absolute left-1/2 transform -translate-x-1/2 -top-2 text-gray-500 text-sm bg-white px-2">OR</div>
+                <div className="absolute left-1/2 transform -translate-x-1/2 -top-2 text-gray-500 text-xs bg-white px-2">OR</div>
             </div>
-            <Footer center={<Button left={<img className="w-11 h-11" src="/asset/google-Logo.png" alt="Logo" />} children="Google" className="max-w-fit"></Button>} />
+            <Footer center={<Button left={<img className="w-6 h-6" src="/asset/google-Logo.png" alt="Logo" />} children="Google" className="max-w-fit py-3 px-8 flex gap-4"></Button>} />
             
             </>
           )}
