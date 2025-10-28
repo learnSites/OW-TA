@@ -10,6 +10,7 @@ import RegisterPage from './RegisterPage';
 
 export default function Home() {
   const [open, setOpen] = useState("popClose");
+  const [visible, setVisible] = useState(true);
 
   const product = [
     { Pdtname: "Home Appliances", logo: "/asset/Home Appliances.jpg" },
@@ -44,7 +45,7 @@ export default function Home() {
         <Footer />
       </div>
 
-      <RegisterPage />
+      <RegisterPage visible={visible} setVisible={setVisible} />
     </div>
     </>
   );
