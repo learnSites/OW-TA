@@ -6,7 +6,7 @@ export default function Header({ toggoleBar }) {
   return (
     <>
       <div className="menuDiv">
-        <div onClick={toggoleBar} className="headMenu" id="togglePopup">
+        <div onMouseEnter={toggoleBar} className="headMenu" id="togglePopup">
           <span></span>
           <span></span>
           <span></span>

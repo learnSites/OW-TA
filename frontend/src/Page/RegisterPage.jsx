@@ -15,7 +15,8 @@ export default function RegisterPage({ visible, setVisible }) {
   const InputPassword = useRef();
   const InputPasswordConfirmation = useRef();
   const [confirmation, setConfirmation] = useState(null);
-  const [MainPass, setMainPass] = useState('');
+  const [mobile, setMobile] = useState('');
+  const MainPass = useRef('');
 
   const sendOtp = async () => {
     try {
@@ -23,6 +24,7 @@ export default function RegisterPage({ visible, setVisible }) {
       const phone = selectCountry.current.val() + InputMobile.current.val();
       const confirmationResult = await setUpRecaptcha(phone);
       setConfirmation(confirmationResult);
+      setMobile(InputMobile.current.val());
       setCurrentStep(2);
     } catch (error) {
       console.error(error);
@@ -60,14 +62,15 @@ export default function RegisterPage({ visible, setVisible }) {
     return () => clearInterval(interval);
   }, []);
 
+
   const uploadData = async () => {
     try {
-      formData = [
+      const formData = [
         {userName: InputUserName.current.val()},
         {nickName: InputNickName.current.val()},
         {password: InputPassword.current.val()},
         {passwordConfirmation: InputPasswordConfirmation.current.val()},
-        {mobileNo: selectCountry.current.val() + InputMobile.current.val()}
+        {mobileNo: selectCountry.current.val() + mobile.trim()}
       ];
       const response = await fetch("http://localhost:5000/api/users/register", {
         method: "POST",
@@ -85,7 +88,7 @@ export default function RegisterPage({ visible, setVisible }) {
 
   function Section({ children }) {
     return (
-      <div className="space-y-6">
+      <div className={`space-y-6`}>
         <div className="space-y-4 flex flex-col items-center">{children}</div>
       </div>
     );
@@ -105,9 +108,9 @@ export default function RegisterPage({ visible, setVisible }) {
   ));
 
 
-  function Footer({ center, onClick }) {
+  function Footer({ center, onClick, className }) {
     return (
-      <div onClick={onClick} className="flex justify-center items-center pt-2">
+      <div onClick={onClick} className={`flex justify-center items-center pt-2 ${className}`}>
         <div>{center}</div>
       </div>
     );
@@ -148,74 +151,78 @@ export default function RegisterPage({ visible, setVisible }) {
           </div>
 
           {/* === STEP 1 : Personal Info === */}
-          {currentStep === 1 && (
+          {(currentStep) && (
             <>
-              <Section>
-                <div className="flex items-center w-[80%] gap-2">
-                <Select ref={selectCountry} className="w-[25%]" />
-                <Input
-                  width="w-[75%]"
-                  ref={InputMobile}
-                  label="Mobile No"
-                  name="MobileNo"
-                  placeholder="Example: 1234567890"
-                  onKeyDown={(e) => {
-                    if (
-                      !/[0-9]/.test(e.key) &&
-                      ![
-                        "Backspace",
-                        "ArrowLeft",
-                        "ArrowRight",
-                        "Delete",
-                      ].includes(e.key)
-                    ) {
-                      e.preventDefault();
+              <div className={`${currentStep === 1 ? 'block' : 'hidden'}`}>
+                <Section>
+                  <div className={`flex items-center w-[80%] gap-2`}>
+                  <Select ref={selectCountry} className="w-[25%]" />
+                  <Input
+                    width="w-[75%]"
+                    ref={InputMobile}
+                    label="Mobile No"
+                    name="MobileNo"
+                    placeholder="Example: 1234567890"
+                    onKeyDown={(e) => {
+                      if (
+                        !/[0-9]/.test(e.key) &&
+                        ![
+                          "Backspace",
+                          "ArrowLeft",
+                          "ArrowRight",
+                          "Delete",
+                        ].includes(e.key)
+                      ) {
+                        e.preventDefault();
+                      }
+                    }}
+                    className="mx-auto select-none"
+                    maxLength={10}
+                  />
+                  </div>
+                  <Footer
+                    className="pb-6 pt-2"
+                    onClick={() => sendOtp()}
+                    center={
+                      <Button
+                        ref={MobileVerifyBut}
+                        right={
+                          <img
+                            className="w-11 h-11 pointer-events-none"
+                            src="/asset/ow-ta_Logo.png"
+                            alt="Logo"
+                          />
+                        }
+                        className="mt-2 py-1 px-6 flex gap-1"
+                      >
+                        To Verify
+                      </Button>
                     }
-                  }}
-                  className="mx-auto select-none"
-                  maxLength={10}
-                />
+                  />
+                </Section>
+                <div className="relative mt-4">
+                  <hr />
+                  <div className="absolute left-1/2 transform -translate-x-1/2 -top-2 text-gray-500 text-xs bg-white px-2">
+                    OR
+                  </div>
                 </div>
                 <Footer
-                  onClick={() => sendOtp()}
+                  className="pt-10"
                   center={
                     <Button
-                      ref={MobileVerifyBut}
-                      right={
+                      left={
                         <img
-                          className="w-11 h-11 pointer-events-none"
-                          src="/asset/ow-ta_Logo.png"
+                          className="w-6 h-6 pointer-events-none"
+                          src="/asset/google-Logo.png"
                           alt="Logo"
                         />
                       }
-                      className="mt-2 py-1 px-6 flex gap-1"
-                    >
-                      To Verify
-                    </Button>
+                      children="Google"
+                      className="max-w-fit py-3 px-8 flex gap-4"
+                    ></Button>
                   }
                 />
-              </Section>
-              <div className="relative mt-4">
-                <hr />
-                <div className="absolute left-1/2 transform -translate-x-1/2 -top-2 text-gray-500 text-xs bg-white px-2">
-                  OR
-                </div>
               </div>
-              <Footer
-                center={
-                  <Button
-                    left={
-                      <img
-                        className="w-6 h-6 pointer-events-none"
-                        src="/asset/google-Logo.png"
-                        alt="Logo"
-                      />
-                    }
-                    children="Google"
-                    className="max-w-fit py-3 px-8 flex gap-4"
-                  ></Button>
-                }
-              />
             </>
           )}
 
@@ -276,6 +283,7 @@ export default function RegisterPage({ visible, setVisible }) {
               />
               <Input
                 ref={InputPassword}
+                getValue={MainPass}
                 name="password"
                 type="password"
                 label="Password"
@@ -283,7 +291,6 @@ export default function RegisterPage({ visible, setVisible }) {
                 placeholder="********"
                 className="mx-auto select-none"
                 maxLength={15}
-                onChange={(e) => setMainPass(e.target.value)}
               />
 
               <Input

@@ -11,6 +11,7 @@ const Input = forwardRef(({
   validClass,
   mainPass =  '',
   type = "text",
+  getValue,
   ...props
 }, ref) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -18,6 +19,7 @@ const Input = forwardRef(({
   const [validate, setValidate] = useState(true);
   const [passTitle, setpassTitle] = useState('');
   const [passValid, setpassValid] = useState([]);
+  const [showPassword, setShowPassword] = useState(false);
   const inputRef = useRef(null);
   const labelRef = useRef(null);
   const [sizes, setSizes] = useState({ inputW: 0, inputH: 0, labelW: 0, labelH: 0 });
@@ -44,7 +46,6 @@ const Input = forwardRef(({
           labelW: labelRef.current.offsetWidth,
           labelH: labelRef.current.offsetHeight,
         });
-        console.log(isFocused + " " + isValue + "  "+ validate);
       }
     };
     measure();
@@ -89,15 +90,16 @@ const Input = forwardRef(({
       return passwordRegex.test(value);
     }
     console.log(mainPass);
-    if(name === "passwordConfirmation"){
-      if(mainPass != '' ){
-        let valid = mainPass === value;
+    if (name === "passwordConfirmation") {
+      if (mainPass && typeof mainPass === "object" && "current" in mainPass) {
+        const mainValue = mainPass.current || "";
+        const valid = mainValue === value && mainValue !== "";
         setValidate(valid);
         return valid;
-      }else{
-        setValidate(false);
       }
+      setValidate(false);
     }
+
 
     return true;
   }
@@ -126,7 +128,7 @@ const Input = forwardRef(({
           ref={inputRef}
           id={name}
           name={name}
-          type={type}
+          type={name === "password" ? showPassword ? type : 'text' : type}
           defaultValue={value}
           onFocus={() => setIsFocused(true)}
           onBlur={(e) => {
@@ -139,7 +141,9 @@ const Input = forwardRef(({
           onChange={(e) => {
             setIsValue(e.target.value !== "");
             if (!validate) Validation(e.target.value);
-            onChange
+              if (getValue && typeof getValue === "object" && "current" in getValue) {
+                getValue.current = e.target.value;
+              }
           }}
           {...props}
           className={`p-3 rounded-xl border w-full
@@ -159,6 +163,22 @@ const Input = forwardRef(({
           {label}
         </label>
         {name === "password" && (<div className="flex gap-1 pl-3">
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-4 top-4 text-gray-500  hover:text-gray-800"
+          >
+            {showPassword ? (
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M1.458 12C2.732 7.943 6.857 5 12 5c5.143 0 9.268 2.943 10.542 7-.52 1.69-1.474 3.186-2.743 4.36M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.477-10-10 0-1.032.155-2.03.45-2.975M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3l18 18" />
+              </svg>
+            )}
+          </button>
           <label 
             className = {`cursor-pointer select-none text-gray-500 transform transition-all duration-500 ease-in-out hover:translate-y-1 hover:bg-gray-900 hover:rounded-xl p-1 hover:text-white ${validatePassStyleS}`}
             onMouseEnter={() => setpassTitle('@')}
