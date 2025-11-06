@@ -15,9 +15,11 @@ export default function RegisterPage({ visible, setVisible }) {
   const InputPassword = useRef();
   const InputPasswordConfirmation = useRef();
   const [confirmation, setConfirmation] = useState(null);
+  const [MainPass, setMainPass] = useState('');
 
   const sendOtp = async () => {
     try {
+      if (!InputMobile.current?.isValid?.() || InputMobile.current?.val?.() == "") return;
       const phone = selectCountry.current.val() + InputMobile.current.val();
       const confirmationResult = await setUpRecaptcha(phone);
       setConfirmation(confirmationResult);
@@ -29,6 +31,7 @@ export default function RegisterPage({ visible, setVisible }) {
 
   const verifyOtp = async () => {
     try {
+      if (!InputOtp.current?.isValid?.() || InputOtp.current?.val?.() == "") return;
       const otp = InputOtp.current.val();
       await confirmation.confirm(otp);
       setCurrentStep(3);
@@ -280,6 +283,7 @@ export default function RegisterPage({ visible, setVisible }) {
                 placeholder="********"
                 className="mx-auto select-none"
                 maxLength={15}
+                onChange={(e) => setMainPass(e.target.value)}
               />
 
               <Input
@@ -288,6 +292,7 @@ export default function RegisterPage({ visible, setVisible }) {
                 name="passwordConfirmation"
                 type="password"
                 width="w-[80%]"
+                mainPass={MainPass}
                 placeholder="Re-enter password"
                 className="mx-auto select-none"
                 maxLength={15}

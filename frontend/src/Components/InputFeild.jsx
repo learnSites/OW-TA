@@ -7,7 +7,9 @@ const Input = forwardRef(({
   value,
   width = "w-full",
   className,
+  onChange,
   validClass,
+  mainPass =  '',
   type = "text",
   ...props
 }, ref) => {
@@ -50,6 +52,10 @@ const Input = forwardRef(({
     return () => window.removeEventListener("resize", measure);
   }, []);
 
+  let validatePassStyleS = passValid.includes('@') ? 'text-red-500' : '';
+  let validatePassStyleN = passValid.includes('0') ? 'text-red-500' : '';
+  let validatePassStyleA = passValid.includes('A7') ? 'text-red-500' : '';
+
   // Validate Mobile Number
   function Validation(value) {
     if (name === "MobileNo") {
@@ -67,22 +73,32 @@ const Input = forwardRef(({
       setValidate(phoneRegex.test(value));
       return phoneRegex.test(value);
     }
-    if (name === "password" || name === "passwordConfirmation") {
+    if (name === "password") {
       const passwordRegex = /^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{7,15}$/;
       const numRegex = /[0-9]/;
       const specialRegex = /[^A-Za-z 0-9]/;
       const alphabetRegex = /^.{7,15}$/;
       let valid = [];
       
-      if(numRegex.test(value)) valid.push('0');
-      if(specialRegex.test(value)) valid.push('@');
-      if(alphabetRegex.test(value)) valid.push('A7');
+      if(!numRegex.test(value)) valid.push('0');
+      if(!specialRegex.test(value)) valid.push('@');
+      if(!alphabetRegex.test(value)) valid.push('A7');
 
       setValidate(passwordRegex.test(value));
       setpassValid(valid);
-
       return passwordRegex.test(value);
     }
+    console.log(mainPass);
+    if(name === "passwordConfirmation"){
+      if(mainPass != '' ){
+        let valid = mainPass === value;
+        setValidate(valid);
+        return valid;
+      }else{
+        setValidate(false);
+      }
+    }
+
     return true;
   }
 
@@ -123,6 +139,7 @@ const Input = forwardRef(({
           onChange={(e) => {
             setIsValue(e.target.value !== "");
             if (!validate) Validation(e.target.value);
+            onChange
           }}
           {...props}
           className={`p-3 rounded-xl border w-full
@@ -143,17 +160,17 @@ const Input = forwardRef(({
         </label>
         {name === "password" && (<div className="flex gap-1 pl-3">
           <label 
-            className = {`cursor-pointer select-none text-gray-500 transform transition-all duration-500 ease-in-out hover:translate-y-1 hover:bg-gray-900 hover:rounded-xl p-1 hover:text-white ${['@'].some(char => passValid.includes(char)) ? 'text-red-500' : ''}`}
+            className = {`cursor-pointer select-none text-gray-500 transform transition-all duration-500 ease-in-out hover:translate-y-1 hover:bg-gray-900 hover:rounded-xl p-1 hover:text-white ${validatePassStyleS}`}
             onMouseEnter={() => setpassTitle('@')}
             onMouseLeave={() => setpassTitle('')}
           >@</label>
           <label 
-            className="cursor-pointer select-none text-gray-500 transform transition-all duration-500 ease-in-out hover:translate-y-1 hover:bg-gray-900 hover:rounded-xl p-1 pl-2 pr-2 hover:text-white"
+            className={`cursor-pointer select-none text-gray-500 transform transition-all duration-500 ease-in-out hover:translate-y-1 hover:bg-gray-900 hover:rounded-xl p-1 pl-2 pr-2 hover:text-white ${validatePassStyleN}`}
             onMouseEnter={() => setpassTitle('0')}
             onMouseLeave={() => setpassTitle('')}
           >0</label>
           <label 
-            className="cursor-pointer select-none text-gray-500 transform transition-all duration-500 ease-in-out hover:translate-y-1 hover:bg-gray-900 hover:rounded-xl p-1 hover:text-white"
+            className={`cursor-pointer select-none text-gray-500 transform transition-all duration-500 ease-in-out hover:translate-y-1 hover:bg-gray-900 hover:rounded-xl p-1 hover:text-white ${validatePassStyleA}`}
             onMouseEnter={() => setpassTitle('A7')}
             onMouseLeave={() => setpassTitle('')}
           >A7</label>
