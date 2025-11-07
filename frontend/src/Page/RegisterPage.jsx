@@ -31,6 +31,34 @@ export default function RegisterPage({ visible, setVisible }) {
     }
   };
 
+  const googleActivity = () => {
+    const initializeGoogle = () =>{
+      window.google.accounts.id.initialize({
+        client_id:"584069822925-n0ba2e80b44c14raclm8hme2r1vdcbif.apps.googleusercontent.com",
+        callback: responseHandler,
+        auto_select: false,
+      });
+
+      window.google.accounts.id.prompt();
+    }
+
+    const responseHandler = (res) => {
+      console.log('Google client details : ' + res.credential)
+    }
+
+    if(!document.getElementById('google-log-act')){
+      const script = document.createElement('script');
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.defer = true;
+      script.id = 'google-log-act';
+      script.onload = initializeGoogle;
+      document.body.appendChild(script);
+    }else{
+      initializeGoogle();
+    }
+  }
+
   const verifyOtp = async () => {
     try {
       if (!InputOtp.current?.isValid?.() || InputOtp.current?.val?.() == "") return;
@@ -122,7 +150,6 @@ export default function RegisterPage({ visible, setVisible }) {
         style={{ overflow: "hidden" }}
         className="min-h-screen w-full flex items-center justify-center bg-cover bg-center bg-no-repeat absolute px-4 sm:px-6 lg:px-8 top-0 left-0 z-[999]"
       >
-        {(currentStep === 1 || currentStep === 2) && <div id="recaptcha-container"></div>}
 
         <div className="absolute inset-0 bg-black/2 backdrop-blur-lg top-0 left-0"></div>
         {/* Card */}
@@ -181,7 +208,7 @@ export default function RegisterPage({ visible, setVisible }) {
                   />
                   </div>
                   <Footer
-                    className="pb-6 pt-2"
+                    className="pb-5 pt-2"
                     onClick={() => sendOtp()}
                     center={
                       <Button
@@ -207,7 +234,8 @@ export default function RegisterPage({ visible, setVisible }) {
                   </div>
                 </div>
                 <Footer
-                  className="pt-10"
+                  className="pt-9"
+                  onClick={() => googleActivity()}
                   center={
                     <Button
                       left={
@@ -335,6 +363,8 @@ export default function RegisterPage({ visible, setVisible }) {
           )}
         </div>
       </div>
+      {(currentStep === 1 || currentStep === 2) && <div className="absolute" id="recaptcha-container"></div>}
+      <div id="googleSignInDiv"></div>
     </>
   );
 }
