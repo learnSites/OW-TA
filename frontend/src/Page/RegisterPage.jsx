@@ -65,13 +65,13 @@ export default function RegisterPage({ visible, setVisible }) {
 
   const uploadData = async () => {
     try {
-      const formData = [
-        {userName: InputUserName.current.val()},
-        {nickName: InputNickName.current.val()},
-        {password: InputPassword.current.val()},
-        {passwordConfirmation: InputPasswordConfirmation.current.val()},
-        {mobileNo: selectCountry.current.val() + mobile.trim()}
-      ];
+      const formData = {
+        userName: InputUserName.current.val(),
+        nickName: InputNickName.current.val(),
+        password: InputPassword.current.val(),
+        passwordConfirmation: InputPasswordConfirmation.current.val(),
+        mobileNo: selectCountry.current.val() + mobile.trim()
+      };
       const response = await fetch("http://localhost:5000/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -181,7 +181,7 @@ export default function RegisterPage({ visible, setVisible }) {
                   />
                   </div>
                   <Footer
-                    className="pb-6 pt-2"
+                    className="pb-5 pt-2"
                     onClick={() => sendOtp()}
                     center={
                       <Button
@@ -207,7 +207,7 @@ export default function RegisterPage({ visible, setVisible }) {
                   </div>
                 </div>
                 <Footer
-                  className="pt-10"
+                  className="pt-9"
                   center={
                     <Button
                       left={
