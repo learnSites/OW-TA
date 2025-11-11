@@ -20,7 +20,7 @@ const createUser = async (req, res) => {
         password = await bcrypt.hash(password,10);
         const user = await User.create({userCode: maxCode + 1,phoneNo,password,nickName,userName});
 
-        res.status(201).json(user);
+        res.status(200).json({user});
     }catch(err){
         console.log(err);
         res.status(500).json({ message: err.message });
